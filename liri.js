@@ -84,12 +84,17 @@ var getMovie = function(movieTitle) {
 var fileCommands = function() {
     fs.readFile('random.txt', 'utf8', function(err, data) {
         if (err) throw err;
-        var dataArr = data.split(',');
-        
-        if (dataArr.length === 2) {
-            command(dataArr[0], dataArr[1]);
-        } else if (dataArr.length === 1) {
-            command(dataArr[0]);
+        var commands = data.split('\n');
+        for (var i = 0; i < commands.length; i++) {
+            var dataArr = commands[i].split(',');
+            if (dataArr[0] == '') {
+                break;
+            }
+            if (dataArr.length === 2) {
+                command(dataArr[0], dataArr[1]);
+            } else if (dataArr.length === 1) {
+                command(dataArr[0]);
+            }
         }
     });
 }
